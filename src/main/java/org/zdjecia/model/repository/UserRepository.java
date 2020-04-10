@@ -6,4 +6,5 @@ import org.zdjecia.model.entities.User;
 
 public interface UserRepository extends CrudRepository<User,Long> {
     User findByUserNameAndUserPassword(String userName, String userPassword);
+    User findByUserName (String userName);
 }
