@@ -1,5 +1,8 @@
 package org.zdjecia.services;
 
-public interface UserService {
+import org.zdjecia.model.dto.JwtTokenDto;
+import org.zdjecia.model.dto.UserDto;
 
+public interface UserService {
+    JwtTokenDto checkIfUserExist(UserDto userDto);
 }

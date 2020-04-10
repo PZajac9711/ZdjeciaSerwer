@@ -8,4 +8,9 @@ import lombok.Getter;
 public class UserDto {
     private final String userName;
     private final String userPassword;
+
+    public UserDto() {
+        userName = null;
+        userPassword = null;
+    }
 }
