@@ -13,11 +13,15 @@ import org.zdjecia.services.ImageService;
 public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
     private final Converter<Image, ImageDto> converterImageToDto;
+    private final Converter<ImageDto, Image> converterImageDtoToImage;
 
     @Autowired
-    public ImageServiceImp(ImageRepository imageRepository,@Qualifier("imageToDto") Converter<Image, ImageDto> converterImageToDto) {
+    public ImageServiceImp(ImageRepository imageRepository,
+                           @Qualifier("imageToDto") Converter<Image, ImageDto> converterImageToDto,
+                           @Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage) {
         this.imageRepository = imageRepository;
         this.converterImageToDto = converterImageToDto;
+        this.converterImageDtoToImage = converterImageDtoToImage;
     }
 
 
@@ -28,7 +32,8 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public void insertImage(Image image) {
+    public void insertImage(ImageDto imageDto) {
+        Image image = converterImageDtoToImage.convert(imageDto);
         imageRepository.save(image);
     }
 

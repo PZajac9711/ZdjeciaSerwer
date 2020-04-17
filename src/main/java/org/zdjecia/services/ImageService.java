@@ -5,6 +5,6 @@ import org.zdjecia.model.entities.Image;
 
 public interface ImageService {
     ImageDto getRandomImage();
-    void insertImage(Image image);
+    void insertImage(ImageDto imageDto);
     ImageDto findImageByTitle(String title);
 }
