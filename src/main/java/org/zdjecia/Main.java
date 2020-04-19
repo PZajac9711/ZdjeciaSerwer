@@ -21,7 +21,8 @@ public class Main {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new JwtFilterImp());
         filterRegistrationBean.addUrlPatterns(
-                "/random"
+                "/random",
+                "/score"
         );
         return filterRegistrationBean;
     }

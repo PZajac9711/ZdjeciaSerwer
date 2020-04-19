@@ -1,19 +1,22 @@
 package org.zdjecia.model.dto;
 
 public class ScoreDto {
-    private final String userName;
-    private final String imageTitle;
+    private String userName;
+    private String imageName;
 
-    public ScoreDto(String userName, String imageTitle) {
+    public ScoreDto() {
+    }
+
+    public ScoreDto(String userName, String imageName) {
         this.userName = userName;
-        this.imageTitle = imageTitle;
+        this.imageName = imageName;
     }
 
     public String getUserName() {
         return userName;
     }
 
-    public String getImageTitle() {
-        return imageTitle;
+    public String getImageName() {
+        return imageName;
     }
 }

@@ -1,16 +1,16 @@
 package org.zdjecia.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
+import org.zdjecia.model.dto.ScoreDto;
 import org.zdjecia.services.ImageService;
 
 @RestController
 public class PrivateController {
     private final ImageService imageService;
-
     public PrivateController(@Qualifier("imageService") ImageService imageService) {
         this.imageService = imageService;
     }
@@ -28,8 +28,8 @@ public class PrivateController {
     public ImageDto getImageByTitle(@RequestParam String title){
         return imageService.findImageByTitle(title);
     }
-    @GetMapping(value = "/scoreClick")
-    public void userClickScore(){
-
+    @PostMapping(value = "/score") // Pytanie co zwracac ?? czy zwracac true/false i na tej podstawie wywolywac skrypt js ktore odrazu bedzie updatowal wynik na stornie ?
+    public void userClickScore(@RequestBody ScoreDto scoreDto){
+        imageService.findIfUserAlreadyClickScore(scoreDto);
     }
 }

@@ -71,4 +71,7 @@ public class Image {
     public void increaseScore(){
         this.points += 1;
     }
+    public void decreaseScore(){
+        this.points -= 1;
+    }
 }
