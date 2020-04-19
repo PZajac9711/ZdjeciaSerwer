@@ -28,4 +28,8 @@ public class PrivateController {
     public ImageDto getImageByTitle(@RequestParam String title){
         return imageService.findImageByTitle(title);
     }
+    @GetMapping(value = "/scoreClick")
+    public void userClickScore(){
+
+    }
 }
