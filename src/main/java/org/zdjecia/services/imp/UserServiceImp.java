@@ -34,10 +34,9 @@ public class UserServiceImp implements UserService {
     }
     @Override
     public Boolean createUser(UserDto userDto) {
-        if((userRepository.findByUserName(userDto.getUserName()) == null) && regularExpresions.validUserName(userDto.getUserName()) && regularExpresions.validUserPassword(userDto.getUserPassword())){
-            User user = converter.convert(userDto);
+        User user = converter.convert(userDto);
+        if((userRepository.findByUserName(user.getUserName()) == null) && regularExpresions.validUserName(userDto.getUserName()) && regularExpresions.validUserPassword(userDto.getUserPassword())){
             user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
-            user.setUserName(userDto.getUserName().toLowerCase());
             userRepository.save(user);
             return true;
         }

@@ -22,10 +22,10 @@ public class PublicController {
     @PostMapping(value = "/login")
     public ResponseEntity<JwtTokenDto> loginMethod(@RequestBody UserDto userDto){
         JwtTokenDto jwtTokenDto = userService.checkIfUserExistAndDataIsValid(userDto);
-        return jwtTokenDto == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND) : new ResponseEntity<>(jwtTokenDto, HttpStatus.OK);
+        return jwtTokenDto == null ? new ResponseEntity<>(null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(jwtTokenDto, HttpStatus.OK);
     }
     @PostMapping(value = "/register")
     public ResponseEntity<Void> registerMethod(@RequestBody UserDto userDto){
-        return userService.createUser(userDto) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        return userService.createUser(userDto) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

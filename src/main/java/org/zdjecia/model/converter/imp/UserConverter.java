@@ -10,7 +10,7 @@ public class UserConverter implements Converter<UserDto, User> {
     @Override
     public User convert(UserDto from) {
         return new User(
-                from.getUserName(),
+                from.getUserName().toLowerCase(),
                 from.getUserPassword()
         );
     }

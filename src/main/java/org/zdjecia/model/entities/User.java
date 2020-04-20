@@ -1,16 +1,8 @@
 package org.zdjecia.model.entities;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@ToString
 @Table(name = "users")
 public class User {
     @Id
@@ -22,8 +14,43 @@ public class User {
     @Column(name = "user_password")
     private String userPassword;
 
-    public User(String userName,String userPassword) {
+    public User() { }
+
+    public User(String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "user_id=" + user_id +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
 }

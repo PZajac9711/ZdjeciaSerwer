@@ -12,7 +12,6 @@ public class RegularExpresionsImp implements RegularExpresions {
     @Override
     public boolean validUserName(String userName) {
         Pattern pattern = Pattern.compile("[a-zA-Z0-9]{3,}");
-        System.out.println(pattern.matcher(userName).matches());
         return pattern.matcher(userName).matches();
     }
 
