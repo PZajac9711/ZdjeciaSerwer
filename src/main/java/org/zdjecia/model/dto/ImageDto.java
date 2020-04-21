@@ -1,17 +1,13 @@
 package org.zdjecia.model.dto;
 
-import org.zdjecia.model.tag.TagEnum;
-
 public class ImageDto {
     private String title;
     private String name;
     private int points;
-    private TagEnum tag;
-    public ImageDto(String title, String name, int points,TagEnum tag) {
+    public ImageDto(String title, String name, int points) {
         this.title = title;
         this.name = name;
         this.points = points;
-        this.tag = tag;
     }
 
     public ImageDto() {
@@ -29,9 +25,6 @@ public class ImageDto {
         return points;
     }
 
-    public TagEnum getTag() {
-        return tag;
-    }
 
     @Override
     public String toString() {
@@ -39,7 +32,6 @@ public class ImageDto {
                 "title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", points=" + points +
-                ", tags=" + tag +
                 '}';
     }
 }

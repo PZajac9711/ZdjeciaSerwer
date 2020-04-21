@@ -20,17 +20,13 @@ public class Image {
     private int points; // how much points have single image
     @Column(name = "insert_date")
     private Date insertDate;
-    @Column(name = "tag")
-    @Enumerated(EnumType.STRING)
-    private TagEnum tag;
 
 
-    public Image(String title, String name, int points, Date insertDate,TagEnum tag) {
+    public Image(String title, String name, int points, Date insertDate) {
         this.title = title;
         this.points = points;
         this.name = name;
         this.insertDate = insertDate;
-        this.tag = tag;
     }
 
     public Image() {
@@ -70,14 +66,6 @@ public class Image {
 
     public void setInsertDate(Date insertDate) {
         this.insertDate = insertDate;
-    }
-
-    public TagEnum getTag() {
-        return tag;
-    }
-
-    public void setTag(TagEnum tag) {
-        this.tag = tag;
     }
 
     public Date getInsertDate() {
