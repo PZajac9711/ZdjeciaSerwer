@@ -28,4 +28,5 @@ public class PublicController {
     public ResponseEntity<Void> registerMethod(@RequestBody UserDto userDto){
         return userService.createUser(userDto) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
 }

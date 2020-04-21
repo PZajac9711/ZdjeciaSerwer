@@ -1,6 +1,9 @@
 package org.zdjecia.model.entities;
 
+import org.zdjecia.model.tag.TagEnum;
+
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity
 @Table(name = "images")
@@ -15,12 +18,19 @@ public class Image {
     private String name; // image name
     @Column(name = "points")
     private int points; // how much points have single image
+    @Column(name = "insert_date")
+    private Date insertDate;
+    @Column(name = "tag")
+    @Enumerated(EnumType.STRING)
+    private TagEnum tag;
 
 
-    public Image(String title, String name,int points) {
+    public Image(String title, String name, int points, Date insertDate,TagEnum tag) {
         this.title = title;
         this.points = points;
         this.name = name;
+        this.insertDate = insertDate;
+        this.tag = tag;
     }
 
     public Image() {
@@ -56,6 +66,22 @@ public class Image {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public void setInsertDate(Date insertDate) {
+        this.insertDate = insertDate;
+    }
+
+    public TagEnum getTag() {
+        return tag;
+    }
+
+    public void setTag(TagEnum tag) {
+        this.tag = tag;
+    }
+
+    public Date getInsertDate() {
+        return insertDate;
     }
 
     @Override

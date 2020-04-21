@@ -2,6 +2,7 @@ package org.zdjecia.model.entities;
 
 import javax.persistence.*;
 
+//Puste konstruktory wymagane przez refleksje Class<T>.newInstance() a potem hibernate chyba ustawia sobie przez settery i gettery
 @Entity
 @Table(name = "users")
 public class User {

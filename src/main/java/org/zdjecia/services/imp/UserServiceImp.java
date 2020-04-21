@@ -45,7 +45,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public JwtTokenDto checkIfUserExistAndDataIsValid(UserDto userDto) {
-        User user = userRepository.findByUserName(userDto.getUserName());
+        User user = userRepository.findByUserName(userDto.getUserName().toLowerCase());
         return user == null  ? null : checkDataAndGenerateToken(user,userDto);
     }
     private JwtTokenDto checkDataAndGenerateToken(User user,UserDto userDto){

@@ -52,7 +52,7 @@ public class ImageServiceImp implements ImageService {
     @Override
     public void findIfUserAlreadyClickScore(ScoreDto scoreDto) {
         Image image = imageRepository.findByName(scoreDto.getImageName());
-        Score score = scoreRepository.findByImageNameAndUserName(scoreDto.getImageName(),scoreDto.getUserName());
+        Score score = scoreRepository.findByImageNameAndUserName(scoreDto.getImageName(),scoreDto.getUserName().toLowerCase());
         if(score == null){
             insertScore(scoreDto,image.getImageId());
             image.increaseScore();
@@ -70,7 +70,7 @@ public class ImageServiceImp implements ImageService {
         Score score = new Score.Builder()
                 .imageName(scoreDto.getImageName())
                 .imageId(imageId)
-                .userName(scoreDto.getUserName())
+                .userName(scoreDto.getUserName().toLowerCase())
                 .build();
         scoreRepository.save(score);
     }
