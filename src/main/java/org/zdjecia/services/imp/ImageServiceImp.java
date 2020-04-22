@@ -43,7 +43,6 @@ public class ImageServiceImp implements ImageService {
         this.converterImageToDtoList = converterImageToDtoList;
     }
 
-
     @Override
     public ImageDto getRandomImage() {
         ImageDto imageDto = converterImageToDto.convert(imageRepository.getRandomImage());
