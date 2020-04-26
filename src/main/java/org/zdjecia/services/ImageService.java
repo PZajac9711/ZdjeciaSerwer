@@ -11,6 +11,5 @@ public interface ImageService {
     ImageDto getRandomImage();
     void insertImage(InsertImageDto insertImageDto);
     ImageDto findImageByTitle(String title);
-    void findIfUserAlreadyClickScore(ScoreDto scoreDto);
     List<ImageDto> findImagesByTag(TagEnum tagEnum);
 }

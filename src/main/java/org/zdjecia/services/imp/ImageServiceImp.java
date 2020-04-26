@@ -64,36 +64,11 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public void findIfUserAlreadyClickScore(ScoreDto scoreDto) {
-        Image image = imageRepository.findByName(scoreDto.getImageName());
-        Score score = scoreRepository.findByImageNameAndUserName(scoreDto.getImageName(),scoreDto.getUserName().toLowerCase());
-        if(score == null){
-            insertScore(scoreDto,image.getImageId());
-            image.increaseScore();
-        }
-        else{
-            deleteScore(score.getScoreId());
-            image.decreaseScore();
-        }
-        imageRepository.save(image);
-    }
-
-    @Override
     public List<ImageDto> findImagesByTag(TagEnum tagEnum) {
         return converterImageToDtoList.convert(imageRepository.findByTag(tagEnum.getTagName()));
     }
 
 
-    private void deleteScore(Long id){
-        scoreRepository.deleteById(id);
-    }
-    private void insertScore(ScoreDto scoreDto, Long imageId){
-        Score score = new Score.Builder()
-                .imageName(scoreDto.getImageName())
-                .imageId(imageId)
-                .userName(scoreDto.getUserName().toLowerCase())
-                .build();
-        scoreRepository.save(score);
-    }
+
 
 }

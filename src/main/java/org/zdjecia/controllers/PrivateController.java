@@ -6,15 +6,19 @@ import org.zdjecia.model.dto.ImageDto;
 import org.zdjecia.model.dto.ScoreDto;
 import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;
+import org.zdjecia.services.ScoreService;
 
 import java.util.List;
 
 @RestController
 public class PrivateController {
     private final ImageService imageService;
+    private final ScoreService scoreService;
 
-    public PrivateController(@Qualifier("imageService") ImageService imageService) {
+    public PrivateController(@Qualifier("imageService") ImageService imageService,
+                             @Qualifier("scoreService") ScoreService scoreService) {
         this.imageService = imageService;
+        this.scoreService = scoreService;
     }
 
     @GetMapping(value = "/random")
@@ -29,7 +33,7 @@ public class PrivateController {
 
     @PostMapping(value = "/score") // Pytanie co zwracac ?? czy zwracac true/false i na tej podstawie wywolywac skrypt js ktore odrazu bedzie updatowal wynik na stornie ?
     public void userClickScore(@RequestBody ScoreDto scoreDto){//poczytac o http w header
-        imageService.findIfUserAlreadyClickScore(scoreDto);
+        scoreService.findIfUserAlreadyClickScore(scoreDto);
     }
 
     @GetMapping(value = "/findByTag")
