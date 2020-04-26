@@ -18,6 +18,8 @@ import org.zdjecia.model.repository.UserRepository;
 import org.zdjecia.services.UserService;
 import org.zdjecia.services.imp.UserServiceImp;
 
+import java.util.Optional;
+
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 
@@ -33,8 +35,9 @@ public class UserServiceTest {
     @Before
     public void setUp() {
         User alex = new User("alex","kot");
+
         Mockito.when(userRepository.findByUserName(alex.getUserName()))
-                .thenReturn(alex);
+                .thenReturn(Optional.of(alex));
 
         Mockito.when(userRepository.save(any(User.class)))
                 .thenReturn(alex);

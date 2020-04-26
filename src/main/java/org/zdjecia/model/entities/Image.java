@@ -1,10 +1,9 @@
 package org.zdjecia.model.entities;
 
-import org.zdjecia.model.tag.TagEnum;
-
 import javax.persistence.*;
 import java.sql.Date;
-
+//Many to one
+//One to one
 @Entity
 @Table(name = "images")
 public class Image {

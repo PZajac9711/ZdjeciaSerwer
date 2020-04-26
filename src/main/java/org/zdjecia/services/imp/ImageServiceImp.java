@@ -83,6 +83,7 @@ public class ImageServiceImp implements ImageService {
         return converterImageToDtoList.convert(imageRepository.findByTag(tagEnum.getTagName()));
     }
 
+
     private void deleteScore(Long id){
         scoreRepository.deleteById(id);
     }

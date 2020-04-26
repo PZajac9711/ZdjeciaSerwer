@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.zdjecia.model.entities.Image;
-import org.zdjecia.model.tag.TagEnum;
 
 import java.util.List;
-
+//ZMIENIC NA HIBERNATE
+//Joiny przez obiekty
 public interface ImageRepository extends CrudRepository<Image,Long> {
     @Query(value = "SELECT * FROM memo.images ORDER BY RANDOM() LIMIT 1",nativeQuery = true)
     Image getRandomImage();
