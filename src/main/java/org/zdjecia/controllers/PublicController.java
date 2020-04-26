@@ -10,6 +10,8 @@ import org.zdjecia.model.dto.JwtTokenDto;
 import org.zdjecia.model.dto.UserDto;
 import org.zdjecia.services.UserService;
 
+import java.util.Optional;
+
 @RestController
 public class PublicController {
     private UserService userService;
@@ -21,8 +23,8 @@ public class PublicController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtTokenDto> loginMethod(@RequestBody UserDto userDto){
-        JwtTokenDto jwtTokenDto = userService.checkIfUserExistAndDataIsValid(userDto);
-        return jwtTokenDto == null ? new ResponseEntity<>(null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(jwtTokenDto, HttpStatus.OK);
+        Optional<JwtTokenDto> jwtTokenDto = userService.checkIfUserExistAndDataIsValid(userDto);
+        return jwtTokenDto.isEmpty() ? new ResponseEntity<>(null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(jwtTokenDto.get(), HttpStatus.OK);
     }
     @PostMapping(value = "/register")
     public ResponseEntity<Void> registerMethod(@RequestBody UserDto userDto){
