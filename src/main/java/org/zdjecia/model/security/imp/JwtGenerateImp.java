@@ -21,7 +21,7 @@ public class JwtGenerateImp implements JwtGenerate {
         Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
 
         return Jwts.builder()
-                .setSubject("Login")
+                .setSubject("Login") // tutaj będzie login użytkownika
                 .claim("roles","user")
                 .claim("login",userName)
                 .setIssuedAt(new Date(currentTime))

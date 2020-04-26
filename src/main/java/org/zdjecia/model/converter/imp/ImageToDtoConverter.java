@@ -9,6 +9,6 @@ import org.zdjecia.model.entities.Image;
 public class ImageToDtoConverter implements Converter<Image, ImageDto> {
     @Override
     public ImageDto convert(Image from) {
-        return new ImageDto(from.getTitle(),from.getName(),from.getPoints());
+        return new ImageDto(from.getTitle(),from.getName(),from.getPoints(),from.getTag());
     }
 }

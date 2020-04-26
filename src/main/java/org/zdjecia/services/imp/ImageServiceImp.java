@@ -5,43 +5,31 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.ScoreDto;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.entities.Score;
-import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.repository.ImageRepository;
 import org.zdjecia.model.repository.ScoreRepository;
-import org.zdjecia.model.repository.TagRepository;
-import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;
-
-import java.util.List;
 
 @Service(value = "imageService")
 public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
     private final ScoreRepository scoreRepository;
-    private final TagRepository tagRepository;
-
     private final Converter<Image, ImageDto> converterImageToDto;
     private final Converter<ImageDto, Image> converterImageDtoToImage;
-    private final Converter<List<Image>, List<ImageDto>> converterImageToDtoList;
 
     @Autowired
     public ImageServiceImp(ImageRepository imageRepository,
                            ScoreRepository scoreRepository,
-                           TagRepository tagRepository,
                            @Qualifier("imageToDto") Converter<Image, ImageDto> converterImageToDto,
-                           @Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage,
-                           @Qualifier("imageToDtoList") Converter<List<Image>, List<ImageDto>> converterImageToDtoList) {
+                           @Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage) {
         this.imageRepository = imageRepository;
         this.converterImageToDto = converterImageToDto;
         this.converterImageDtoToImage = converterImageDtoToImage;
         this.scoreRepository = scoreRepository;
-        this.tagRepository = tagRepository;
-        this.converterImageToDtoList = converterImageToDtoList;
     }
+
 
     @Override
     public ImageDto getRandomImage() {
@@ -50,11 +38,9 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public void insertImage(InsertImageDto insertImageDto) {
-        Image image = converterImageDtoToImage.convert(insertImageDto);
+    public void insertImage(ImageDto imageDto) {
+        Image image = converterImageDtoToImage.convert(imageDto);
         imageRepository.save(image);
-        insertImageDto.getTags()
-                .forEach(tag -> tagRepository.save(new Tag(insertImageDto.getName(),tag)));
     }
 
     @Override
@@ -77,13 +63,6 @@ public class ImageServiceImp implements ImageService {
         }
         imageRepository.save(image);
     }
-
-    @Override
-    public List<ImageDto> findImagesByTag(TagEnum tagEnum) {
-        return converterImageToDtoList.convert(imageRepository.findByTag(tagEnum.getTagName()));
-    }
-
-
     private void deleteScore(Long id){
         scoreRepository.deleteById(id);
     }

@@ -12,6 +12,6 @@ public class ImageDtoToImageConverter implements Converter<ImageDto, Image> {
     @Override
     public Image convert(ImageDto from) {
         Date date = new Date(System.currentTimeMillis());
-        return new Image(from.getTitle(),from.getName(),from.getPoints(),date);
+        return new Image(from.getTitle(),from.getName(),from.getPoints(),date,from.getTag());
     }
 }

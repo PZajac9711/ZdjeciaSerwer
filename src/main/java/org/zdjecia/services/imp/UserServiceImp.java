@@ -8,37 +8,34 @@ import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.JwtTokenDto;
 import org.zdjecia.model.dto.UserDto;
 import org.zdjecia.model.entities.User;
-import org.zdjecia.model.expresions.RegularExpresions;
 import org.zdjecia.model.repository.UserRepository;
 import org.zdjecia.model.security.JwtGenerate;
+import org.zdjecia.services.RegularExpresions;
 import org.zdjecia.services.UserService;
-
-import java.util.Optional;
 
 @Service(value = "userServiceImp")
 public class UserServiceImp implements UserService {
     private UserRepository userRepository;
     private Converter<UserDto, User> converter;
-    private PasswordEncoder passwordEncoder;
     private JwtGenerate jwtGenerate;
-
+    private PasswordEncoder passwordEncoder;
+    private RegularExpresions regularExpresions;
     @Autowired
     public UserServiceImp(UserRepository userRepository,
                           PasswordEncoder passwordEncoder,
+                          @Qualifier("userConverter") Converter<UserDto, User> converter,
                           @Qualifier("jwtGenerate") JwtGenerate jwtGenerate,
-                          @Qualifier("userConverter") Converter<UserDto, User> converter){
+                          @Qualifier("regularExpresions") RegularExpresions regularExpresions){
         this.converter = converter;
-        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.jwtGenerate = jwtGenerate;
+        this.passwordEncoder = passwordEncoder;
+        this.regularExpresions = regularExpresions;
     }
     @Override
     public Boolean createUser(UserDto userDto) {
         User user = converter.convert(userDto);
-        if((userRepository.findByUserName(user.getUserName()).isEmpty())
-                && RegularExpresions.validUserName(userDto.getUserName())
-                && RegularExpresions.validUserPassword(userDto.getUserPassword()))
-        {
+        if((userRepository.findByUserName(user.getUserName()) == null) && regularExpresions.validUserName(userDto.getUserName()) && regularExpresions.validUserPassword(userDto.getUserPassword())){
             user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
             userRepository.save(user);
             return true;
@@ -47,15 +44,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public Optional<JwtTokenDto> checkIfUserExistAndDataIsValid(UserDto userDto) {
-        Optional<User> user = userRepository.findByUserName(userDto.getUserName().toLowerCase());
-        return user.isEmpty()  ? Optional.empty() : checkDataAndGenerateToken(user.get(),userDto);
+    public JwtTokenDto checkIfUserExistAndDataIsValid(UserDto userDto) {
+        User user = userRepository.findByUserName(userDto.getUserName().toLowerCase());
+        return user == null  ? null : checkDataAndGenerateToken(user,userDto);
     }
-    private Optional<JwtTokenDto> checkDataAndGenerateToken(User user,UserDto userDto){
-        if(passwordEncoder.matches(userDto.getUserPassword(),user.getUserPassword())){
-            JwtTokenDto jwtTokenDto = new JwtTokenDto(jwtGenerate.generateToken(userDto.getUserName()));
-            return Optional.of(jwtTokenDto);
-        }
-        return Optional.empty();
+    private JwtTokenDto checkDataAndGenerateToken(User user,UserDto userDto){
+        return passwordEncoder.matches(userDto.getUserPassword(),user.getUserPassword()) ? new JwtTokenDto(jwtGenerate.generateToken(userDto.getUserName())) : null;
     }
 }
