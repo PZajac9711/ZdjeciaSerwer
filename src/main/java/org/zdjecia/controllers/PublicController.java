@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 public class PublicController {
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public PublicController(UserService userService) {
