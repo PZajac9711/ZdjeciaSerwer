@@ -7,12 +7,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.zdjecia.Main;
 import org.zdjecia.model.dto.UserDto;
+import org.zdjecia.model.dto.UserRegisterDto;
 import org.zdjecia.model.entities.User;
 import org.zdjecia.model.repository.UserRepository;
 import org.zdjecia.services.UserService;
@@ -34,7 +32,7 @@ public class UserServiceTest {
 
     @Before
     public void setUp() {
-        User alex = new User("alex","kot");
+        User alex = new User("alex","kot", "email");
 
         Mockito.when(userRepository.findByUserName(alex.getUserName()))
                 .thenReturn(Optional.of(alex));
@@ -44,10 +42,10 @@ public class UserServiceTest {
     }
     @Test
     public void createUserTest() {
-        UserDto userDto = new UserDto("alex","kot");
+        UserRegisterDto userDto = new UserRegisterDto("alex","kot","email");
         assertFalse(userService.createUser(userDto));
 
-        UserDto userDto1 = new UserDto("alexx","kot");
+        UserRegisterDto userDto1 = new UserRegisterDto("alexx","kot","email");
         assertTrue(userService.createUser(userDto1));
     }
 

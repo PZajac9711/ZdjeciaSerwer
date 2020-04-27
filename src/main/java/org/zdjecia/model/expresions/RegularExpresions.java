@@ -11,4 +11,9 @@ public interface RegularExpresions {
     static boolean validUserPassword(String userPassword) {
         return true;
     }
+
+    static boolean validUserEmail(String email){
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+        return pattern.matcher(email).matches();
+    }
 }

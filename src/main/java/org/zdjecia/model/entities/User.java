@@ -14,12 +14,15 @@ public class User {
     private String userName;
     @Column(name = "user_password")
     private String userPassword;
+    @Column(name = "email")
+    private String email;
 
     public User() { }
 
-    public User(String userName, String userPassword) {
+    public User(String userName, String userPassword, String email) {
         this.userName = userName;
         this.userPassword = userPassword;
+        this.email = email;
     }
 
     public Long getUser_id() {
@@ -44,6 +47,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

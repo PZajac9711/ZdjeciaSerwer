@@ -32,6 +32,7 @@ public class ScoreServiceImp implements ScoreService {
             image.decreaseScore();
         }
         imageRepository.save(image);
+        //return image.getPoints(); i zapisywac to w http header pod jakas value :)))))
     }
     private void deleteScore(Long id){
         scoreRepository.deleteById(id);

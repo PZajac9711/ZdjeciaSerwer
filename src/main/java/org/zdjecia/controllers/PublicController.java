@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.zdjecia.model.dto.JwtTokenDto;
 import org.zdjecia.model.dto.UserDto;
+import org.zdjecia.model.dto.UserRegisterDto;
 import org.zdjecia.services.UserService;
 
 import java.util.Optional;
@@ -27,7 +28,7 @@ public class PublicController {
         return jwtTokenDto.isEmpty() ? new ResponseEntity<>(null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(jwtTokenDto.get(), HttpStatus.OK);
     }
     @PostMapping(value = "/register")
-    public ResponseEntity<Void> registerMethod(@RequestBody UserDto userDto){
+    public ResponseEntity<Void> registerMethod(@RequestBody UserRegisterDto userDto){
         return userService.createUser(userDto) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
