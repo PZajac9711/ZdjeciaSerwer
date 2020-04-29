@@ -21,7 +21,6 @@ import java.util.List;
 @Service(value = "imageService")
 public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
-    private final ScoreRepository scoreRepository;
     private final TagRepository tagRepository;
 
     private final Converter<Image, ImageDto> converterImageToDto;
@@ -30,7 +29,6 @@ public class ImageServiceImp implements ImageService {
 
     @Autowired
     public ImageServiceImp(ImageRepository imageRepository,
-                           ScoreRepository scoreRepository,
                            TagRepository tagRepository,
                            @Qualifier("imageToDto") Converter<Image, ImageDto> converterImageToDto,
                            @Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage,
@@ -38,7 +36,6 @@ public class ImageServiceImp implements ImageService {
         this.imageRepository = imageRepository;
         this.converterImageToDto = converterImageToDto;
         this.converterImageDtoToImage = converterImageDtoToImage;
-        this.scoreRepository = scoreRepository;
         this.tagRepository = tagRepository;
         this.converterImageToDtoList = converterImageToDtoList;
     }
@@ -58,8 +55,8 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public ImageDto findImageByTitle(String title) {
-        ImageDto imageDto = converterImageToDto.convert(imageRepository.findByTitle(title));
+    public List<ImageDto> findImageByTitle(String title) {
+        List<ImageDto> imageDto = converterImageToDtoList.convert(imageRepository.findByTitle(title));
         return imageDto;
     }
 

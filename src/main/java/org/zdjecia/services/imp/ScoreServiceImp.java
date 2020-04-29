@@ -20,7 +20,7 @@ public class ScoreServiceImp implements ScoreService {
     }
 
     @Override
-    public void findIfUserAlreadyClickScore(ScoreDto scoreDto) {
+    public int findIfUserAlreadyClickScore(ScoreDto scoreDto) {
         Image image = imageRepository.findByName(scoreDto.getImageName());
         Score score = scoreRepository.findByImageNameAndUserName(scoreDto.getImageName(),scoreDto.getUserName().toLowerCase());
         if(score == null){
@@ -32,7 +32,7 @@ public class ScoreServiceImp implements ScoreService {
             image.decreaseScore();
         }
         imageRepository.save(image);
-        //return image.getPoints(); i zapisywac to w http header pod jakas value :)))))
+        return image.getPoints(); //i zapisywac to w http header pod jakas value :)))))
     }
     private void deleteScore(Long id){
         scoreRepository.deleteById(id);

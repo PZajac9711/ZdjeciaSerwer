@@ -1,6 +1,7 @@
 package org.zdjecia.controllers;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,14 +33,19 @@ public class PrivateController {
         return imageService.getRandomImage();
     }
 
-    @GetMapping(value = "/getByTitle") // DO ZMIANY bo title nie jest unikalne i moze zwrocic kilka rezultow !!
-    public ImageDto getImageByTitle(@RequestParam String title){
+    @GetMapping(value = "/getByTitle")
+    public List<ImageDto> getImageByTitle(@RequestParam String title){
         return imageService.findImageByTitle(title);
     }
 
-    @PostMapping(value = "/score") // Pytanie co zwracac ?? czy zwracac true/false i na tej podstawie wywolywac skrypt js ktore odrazu bedzie updatowal wynik na stornie ?
-    public void userClickScore(@RequestBody ScoreDto scoreDto){//poczytac o http w header
-        scoreService.findIfUserAlreadyClickScore(scoreDto);
+    @PostMapping(value = "/score")
+    public ResponseEntity<Void> userClickScore(@RequestBody ScoreDto scoreDto){//poczytac o http w header
+        int score = scoreService.findIfUserAlreadyClickScore(scoreDto);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set("actualScore",String.valueOf(score));
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .build();
     }
 
     @GetMapping(value = "/findByTag")
@@ -51,6 +57,7 @@ public class PrivateController {
     public ResponseEntity<List<Image>> getPageById(@RequestParam(defaultValue = "0") int page){
         return new ResponseEntity<>(pageService.getPage(page,"imageId"), HttpStatus.OK);
     }
+
     @GetMapping(value = "/numberLastPage")
     public ResponseEntity<Long> numberOfLastPage(){
         return new ResponseEntity<>(pageService.getNumberOfLastPage(),HttpStatus.OK);

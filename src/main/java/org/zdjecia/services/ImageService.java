@@ -10,6 +10,6 @@ import java.util.List;
 public interface ImageService {
     ImageDto getRandomImage();
     void insertImage(InsertImageDto insertImageDto);
-    ImageDto findImageByTitle(String title);
+    List<ImageDto> findImageByTitle(String title);
     List<ImageDto> findImagesByTag(TagEnum tagEnum);
 }
