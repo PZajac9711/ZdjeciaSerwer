@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
+import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.ScoreDto;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.tag.TagEnum;
@@ -61,5 +62,10 @@ public class PrivateController {
     @GetMapping(value = "/numberLastPage")
     public ResponseEntity<Long> numberOfLastPage(){
         return new ResponseEntity<>(pageService.getNumberOfLastPage(),HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/insert")
+    public ResponseEntity<Boolean> insertImageToDatabase(@RequestBody InsertImageDto insertImageDto){
+        return imageService.insertImage(insertImageDto) ? new ResponseEntity<>(true,HttpStatus.CREATED) : new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
     }
 }

@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.file.FileHelper;
 import org.zdjecia.services.FileService;
+import org.zdjecia.services.ImageService;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,12 +24,20 @@ public class FileServiceImp implements FileService {
     }
 
     @Override
-    public boolean saveFile(MultipartFile image) throws IOException {
-        File newImage = new File(PLACE_TO_SAVE + fileHelper.generateNewFileName(image.getOriginalFilename()));
+    public String saveFile(MultipartFile image) throws IOException {
+        final String newFileName = fileHelper.generateNewFileName(image.getOriginalFilename());
+        File newImage = new File(PLACE_TO_SAVE + newFileName);
         newImage.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(newImage);
         fileOutputStream.write(image.getBytes());
         fileOutputStream.close();
-        return true;
+        return newFileName;
     }
+
+    @Override
+    public boolean checkIfFileExist(String fileName) {
+        return new File(PLACE_TO_SAVE + fileName).exists();
+    }
+
+
 }

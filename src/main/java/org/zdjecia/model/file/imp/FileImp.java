@@ -25,6 +25,6 @@ public class FileImp implements FileHelper {
     }
     private String getFileExtension(String fileName){
         int beginIndex = fileName.indexOf('.');
-        return fileName.substring(beginIndex,fileName.length());
+        return fileName.substring(beginIndex);
     }
 }
