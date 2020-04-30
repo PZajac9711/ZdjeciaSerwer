@@ -17,6 +17,10 @@ public class Tag {
     @Column(name = "tag")
     private String tagEnum;
 
+    @ManyToOne
+    @JoinColumn(name = "image_name",insertable = false,updatable = false)
+    private Image image;
+
     public Tag(String imageName,TagEnum tagEnum){
         this.tagEnum = tagEnum.getTagName();
         this.imageName = imageName;

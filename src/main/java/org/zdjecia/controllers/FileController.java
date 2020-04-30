@@ -22,7 +22,7 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @PostMapping(value = "/upload",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/uploadFile",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Void> uploadFile(MultipartFile image) throws IOException {
         String fileName = fileService.saveFile(image);
         HttpHeaders httpHeaders = new HttpHeaders();

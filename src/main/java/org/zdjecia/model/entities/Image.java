@@ -2,6 +2,8 @@ package org.zdjecia.model.entities;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
+
 //Many to one
 //One to one
 @Entity
@@ -19,6 +21,9 @@ public class Image {
     private int points; // how much points have single image
     @Column(name = "insert_date")
     private Date insertDate;
+
+    @OneToMany(mappedBy = "image")
+    private Set<Tag> tags;
 
 
     public Image(String title, String name, int points, Date insertDate) {
@@ -79,6 +84,14 @@ public class Image {
                 ", name='" + name + '\'' +
                 ", points=" + points +
                 '}';
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public void increaseScore(){
