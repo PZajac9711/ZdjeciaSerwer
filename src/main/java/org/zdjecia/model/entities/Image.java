@@ -5,7 +5,7 @@ import java.sql.Date;
 //Many to one
 //One to one
 @Entity
-@Table(name = "images")
+@Table(name = "images",schema = "memo")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

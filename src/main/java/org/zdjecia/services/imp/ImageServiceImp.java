@@ -44,7 +44,7 @@ public class ImageServiceImp implements ImageService {
 
     @Override
     public ImageDto getRandomImage() {
-        ImageDto imageDto = converterImageToDto.convert(imageRepository.getRandomImage());
+        ImageDto imageDto = converterImageToDto.convert(imageRepository.getRandomImage().get(0));
         return imageDto;
     }
 

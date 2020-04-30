@@ -24,6 +24,7 @@ import org.zdjecia.services.ImageService;
 import org.zdjecia.services.imp.ImageServiceImp;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest(classes = {ImageServiceImp.class, ImageToDtoConverter.class, ImageToDtoListConverter.class, ImageDtoToImageConverter.class})
@@ -54,12 +55,13 @@ public class ImageServiceTest {
 
     @Before
     public void setUp(){
+        List<Image> list = new ArrayList<>();
         Date date = new Date(System.currentTimeMillis());
         Image image = new Image("imagename","imagename",0,date);
         Mockito.when(imageRepository.findByName("imagename"))
                 .thenReturn(image);
         Mockito.when(imageRepository.getRandomImage())
-                .thenReturn(image);
+                .thenReturn(list);
     }
 
     @Test

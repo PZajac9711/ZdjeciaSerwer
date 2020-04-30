@@ -6,7 +6,7 @@ import org.zdjecia.model.tag.TagEnum;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tags",schema = "memo")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,12 +14,11 @@ public class Tag {
     private Long id;
     @Column(name = "image_name")
     private String imageName;
-    @Enumerated(EnumType.STRING)
     @Column(name = "tag")
-    private TagEnum tagEnum;
+    private String tagEnum;
 
     public Tag(String imageName,TagEnum tagEnum){
-        this.tagEnum = tagEnum;
+        this.tagEnum = tagEnum.getTagName();
         this.imageName = imageName;
     }
 
@@ -42,11 +41,11 @@ public class Tag {
         this.imageName = imageName;
     }
 
-    public TagEnum getTagEnum() {
+    public String getTagEnum() {
         return tagEnum;
     }
 
     public void setTagEnum(TagEnum tagEnum) {
-        this.tagEnum = tagEnum;
+        this.tagEnum = tagEnum.getTagName();
     }
 }
