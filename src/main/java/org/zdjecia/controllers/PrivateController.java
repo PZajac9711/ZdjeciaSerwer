@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
 import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.ScoreDto;
-import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;
 import org.zdjecia.services.PageService;
@@ -21,6 +20,7 @@ public class PrivateController {
     private final ImageService imageService;
     private final ScoreService scoreService;
     private final PageService pageService;
+
     public PrivateController(@Qualifier("imageService") ImageService imageService,
                              @Qualifier("scoreService") ScoreService scoreService,
                              @Qualifier("pageService") PageService pageService) {
@@ -29,43 +29,49 @@ public class PrivateController {
         this.pageService = pageService;
     }
 
+    @CrossOrigin(allowedHeaders = "authorization")
     @GetMapping(value = "/random")
-    public ImageDto getRandomImage(){
-        return imageService.getRandomImage();
+    public ResponseEntity<ImageDto> getRandomImage(@RequestHeader("authorization") String language) {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        return ResponseEntity.ok()
+                .headers(httpHeaders)
+                .body(imageService.getRandomImage());
     }
 
     @GetMapping(value = "/getByTitle")
-    public List<ImageDto> getImageByTitle(@RequestParam String title){
+    public List<ImageDto> getImageByTitle(@RequestParam String title) {
         return imageService.findImageByTitle(title);
     }
 
     @PostMapping(value = "/score")
-    public ResponseEntity<Void> userClickScore(@RequestBody ScoreDto scoreDto){//poczytac o http w header
+    public ResponseEntity<Void> userClickScore(@RequestBody ScoreDto scoreDto) {//poczytac o http w header
         int score = scoreService.findIfUserAlreadyClickScore(scoreDto);
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.set("actualScore",String.valueOf(score));
+        httpHeaders.set("actualScore", String.valueOf(score));
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .build();
     }
 
     @GetMapping(value = "/findByTag")
-    public List<ImageDto> findByTag(@RequestParam TagEnum tagEnum){
+    public List<ImageDto> findByTag(@RequestParam TagEnum tagEnum) {
         return imageService.findImagesByTag(tagEnum);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/page")
-    public ResponseEntity<List<Image>> getPageById(@RequestParam(defaultValue = "0") int page){
-        return new ResponseEntity<>(pageService.getPage(page,"imageId"), HttpStatus.OK);
+    public ResponseEntity<List<ImageDto>> getPageById(@RequestParam(defaultValue = "0") int page) {
+        return new ResponseEntity<>(pageService.getPage(page, "imageId"), HttpStatus.OK);
     }
 
     @GetMapping(value = "/numberLastPage")
-    public ResponseEntity<Long> numberOfLastPage(){
-        return new ResponseEntity<>(pageService.getNumberOfLastPage(),HttpStatus.OK);
+    public ResponseEntity<Long> numberOfLastPage() {
+        return new ResponseEntity<>(pageService.getNumberOfLastPage(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Boolean> insertImageToDatabase(@RequestBody InsertImageDto insertImageDto){
-        return imageService.insertImage(insertImageDto) ? new ResponseEntity<>(true,HttpStatus.CREATED) : new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Boolean> insertImageToDatabase(@RequestBody InsertImageDto insertImageDto) {
+        return imageService.insertImage(insertImageDto) ? new ResponseEntity<>(true, HttpStatus.CREATED) : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
+
 }

@@ -22,10 +22,6 @@ public class Image {
     @Column(name = "insert_date")
     private Date insertDate;
 
-    @OneToMany(mappedBy = "image")
-    private Set<Tag> tags;
-
-
     public Image(String title, String name, int points, Date insertDate) {
         this.title = title;
         this.points = points;
@@ -84,14 +80,6 @@ public class Image {
                 ", name='" + name + '\'' +
                 ", points=" + points +
                 '}';
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
     }
 
     public void increaseScore(){

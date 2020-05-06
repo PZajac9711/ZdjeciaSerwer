@@ -18,6 +18,7 @@ public class JwtFilterImp implements javax.servlet.Filter{
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         String header = httpServletRequest.getHeader("authorization");
+        System.out.println(header);
         try{
             if(httpServletRequest == null || !header.startsWith("Bearer ")){
                 throw new ServletException("JwtFitler request is null or header didnt start with Bearer");
