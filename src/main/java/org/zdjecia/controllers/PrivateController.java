@@ -44,12 +44,14 @@ public class PrivateController {
         return imageService.findImageByTitle(title);
     }
 
-    @PostMapping(value = "/score")
+    @CrossOrigin
+    @GetMapping(value = "/score")
     public ResponseEntity<Void> userClickScore(@RequestParam String imageName, @RequestHeader (name="Authorization") String token) {//poczytac o http w header
         System.out.println(token);
         int score = scoreService.findIfUserAlreadyClickScore(imageName,token);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("actualScore", String.valueOf(score));
+        httpHeaders.set("access-control-expose-headers", "actualScore");
         return ResponseEntity.ok()
                 .headers(httpHeaders)
                 .build();
