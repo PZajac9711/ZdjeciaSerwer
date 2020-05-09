@@ -29,6 +29,7 @@ public class PublicController {
         Optional<JwtTokenDto> jwtTokenDto = userService.checkIfUserExistAndDataIsValid(userDto);
         return jwtTokenDto.isEmpty() ? new ResponseEntity<>(null, HttpStatus.BAD_REQUEST) : new ResponseEntity<>(jwtTokenDto.get(), HttpStatus.OK);
     }
+    @CrossOrigin
     @PostMapping(value = "/register")
     public ResponseEntity<Void> registerMethod(@RequestBody UserRegisterDto userDto){
         return userService.createUser(userDto) ? new ResponseEntity<>(HttpStatus.CREATED) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);

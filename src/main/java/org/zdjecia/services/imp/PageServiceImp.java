@@ -30,6 +30,10 @@ public class PageServiceImp implements PageService {
 
     @Override
     public List<ImageDto> getPage(int pageNumber,String sortBy) {
+        if(pageNumber > getNumberOfLastPage()){
+            long tmp = getNumberOfLastPage()-1;
+            pageNumber = (int)tmp;
+        }
         PageRequest paging = PageRequest.of(pageNumber, MAX_PAGE_ON_SINGLE_PAGE, Sort.by(sortBy));
         Page<Image> pagedResult = imageRepository.findAll(paging);
         if(pagedResult.hasContent()) {

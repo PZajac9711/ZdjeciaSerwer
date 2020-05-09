@@ -1,5 +1,6 @@
 package org.zdjecia.controllers;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,8 +45,9 @@ public class PrivateController {
     }
 
     @PostMapping(value = "/score")
-    public ResponseEntity<Void> userClickScore(@RequestBody ScoreDto scoreDto) {//poczytac o http w header
-        int score = scoreService.findIfUserAlreadyClickScore(scoreDto);
+    public ResponseEntity<Void> userClickScore(@RequestParam String imageName, @RequestHeader (name="Authorization") String token) {//poczytac o http w header
+        System.out.println(token);
+        int score = scoreService.findIfUserAlreadyClickScore(imageName,token);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("actualScore", String.valueOf(score));
         return ResponseEntity.ok()
