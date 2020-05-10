@@ -20,11 +20,7 @@ public class RegularExpresionsTest {
             "kamilPL1997"
     })
     public void validUserNameShouldReturnTrue(String login) {
-        try {
-            assertTrue(RegularExpresions.validUserName(login));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertTrue(RegularExpresions.validUserName(login));
     }
 
     @ParameterizedTest
@@ -38,11 +34,7 @@ public class RegularExpresionsTest {
             "?????",
     })
     public void validUserNameShouldReturnFalse(String login) {
-        try {
-            assertFalse(RegularExpresions.validUserName(login));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertFalse(RegularExpresions.validUserName(login));
     }
 
     @ParameterizedTest
@@ -56,11 +48,7 @@ public class RegularExpresionsTest {
             "example@s.example",
     })
     public void validEmailShouldReturnTrue(String email) {
-        try {
-            assertTrue(RegularExpresions.validUserEmail(email));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertTrue(RegularExpresions.validUserEmail(email));
     }
 
     @ParameterizedTest
@@ -72,10 +60,6 @@ public class RegularExpresionsTest {
             "this is\"not\\allowed@example.com",
     })
     public void validEmailShouldReturnFalse(String email) {
-        try {
-            assertFalse(RegularExpresions.validUserEmail(email));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertFalse(RegularExpresions.validUserEmail(email));
     }
 }
