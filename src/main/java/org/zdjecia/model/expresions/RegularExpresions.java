@@ -13,7 +13,7 @@ public interface RegularExpresions {
     }
 
     static boolean validUserEmail(String email){
-        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
         return pattern.matcher(email).matches();
     }
 }
