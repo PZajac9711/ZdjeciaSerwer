@@ -49,18 +49,6 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public boolean insertImage(InsertImageDto insertImageDto) {
-        if(fileService.checkIfFileExist(insertImageDto.getName())){
-            Image image = converterImageDtoToImage.convert(insertImageDto);
-            imageRepository.save(image);
-            insertImageDto.getTags()
-                    .forEach(tag -> tagRepository.save(new Tag(insertImageDto.getName(),tag)));
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public List<ImageDto> findImageByTitle(String title) {
         List<ImageDto> imageDto = converterImageToDtoList.convert(imageRepository.findByTitle(title));
         return imageDto;

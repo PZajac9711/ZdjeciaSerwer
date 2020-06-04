@@ -25,6 +25,9 @@ public class ImageDto {
         return points;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

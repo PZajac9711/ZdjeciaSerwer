@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface ImageService {
     ImageDto getRandomImage();
-    boolean insertImage(InsertImageDto insertImageDto);
     List<ImageDto> findImageByTitle(String title);
     List<ImageDto> findImagesByTag(TagEnum tagEnum);
 }

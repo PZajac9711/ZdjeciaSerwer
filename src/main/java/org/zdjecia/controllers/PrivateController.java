@@ -1,6 +1,5 @@
 package org.zdjecia.controllers;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -8,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
 import org.zdjecia.model.dto.InsertImageDto;
-import org.zdjecia.model.dto.ScoreDto;
 import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;
 import org.zdjecia.services.PageService;
@@ -71,11 +69,6 @@ public class PrivateController {
     @GetMapping(value = "/numberLastPage")
     public ResponseEntity<Long> numberOfLastPage() {
         return new ResponseEntity<>(pageService.getNumberOfLastPage(), HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/insert")
-    public ResponseEntity<Boolean> insertImageToDatabase(@RequestBody InsertImageDto insertImageDto) {
-        return imageService.insertImage(insertImageDto) ? new ResponseEntity<>(true, HttpStatus.CREATED) : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
     }
 
 }

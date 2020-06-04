@@ -12,9 +12,8 @@ import java.util.stream.Collectors;
 public class ImageToDtoListConverter implements Converter<List<Image>, List<ImageDto>> {
     @Override
     public List<ImageDto> convert(List<Image> from) {
-        List<ImageDto> imageDtos = from.stream()
+        return from.stream()
                 .map(img -> new ImageDto(img.getTitle(),img.getName(),img.getPoints()))
                 .collect(Collectors.toList());
-        return imageDtos;
     }
 }

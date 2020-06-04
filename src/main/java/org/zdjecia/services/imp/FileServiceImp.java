@@ -4,7 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.zdjecia.model.converter.Converter;
+import org.zdjecia.model.dto.ImageDto;
+import org.zdjecia.model.dto.InsertImageDto;
+import org.zdjecia.model.entities.Image;
+import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.file.FileHelper;
+import org.zdjecia.model.repository.ImageRepository;
+import org.zdjecia.model.repository.TagRepository;
 import org.zdjecia.services.FileService;
 
 import java.io.File;
@@ -15,21 +22,27 @@ import java.io.IOException;
 public class FileServiceImp implements FileService {
     private final FileHelper fileHelper;
     private final String PLACE_TO_SAVE = System.getProperty("user.dir") + "\\src\\main\\upload\\static\\images\\";
+    private TagRepository tagRepository;
+    private ImageRepository imageRepository;
+    private final Converter<ImageDto, Image> converterImageDtoToImage;
 
     @Autowired
-    public FileServiceImp(@Qualifier("fileImp") FileHelper fileHelper) {
+    public FileServiceImp(@Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage,@Qualifier("fileImp") FileHelper fileHelper, TagRepository tagRepository, ImageRepository imageRepository) {
         this.fileHelper = fileHelper;
+        this.tagRepository = tagRepository;
+        this.converterImageDtoToImage = converterImageDtoToImage;
+        this.imageRepository = imageRepository;
     }
 
     @Override
-    public String saveFile(MultipartFile image) throws IOException {
+    public boolean saveFile(MultipartFile image, InsertImageDto imageData) throws IOException {
         final String newFileName = fileHelper.generateNewFileName(image.getOriginalFilename());
         File newImage = new File(PLACE_TO_SAVE + newFileName);
         newImage.createNewFile();
         FileOutputStream fileOutputStream = new FileOutputStream(newImage);
         fileOutputStream.write(image.getBytes());
         fileOutputStream.close();
-        return newFileName;
+        return insertImage(newImage.getName(),imageData);
     }
 
     @Override
@@ -38,4 +51,15 @@ public class FileServiceImp implements FileService {
     }
 
 
+    private boolean insertImage(String name,InsertImageDto imageData) {
+        imageData.setName(name);
+        if(checkIfFileExist(name)){
+            Image image = converterImageDtoToImage.convert(imageData);
+            imageRepository.save(image);
+            imageData.getTags()
+                    .forEach(tag -> tagRepository.save(new Tag(name,tag)));
+            return true;
+        }
+        return false;
+    }
 }
