@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
 import org.zdjecia.model.dto.InsertImageDto;
+import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.repository.ImageRepository;
@@ -43,9 +44,17 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public ImageDto getRandomImage() {
+    public TmpDtoToFix getRandomImage() {
         ImageDto imageDto = converterImageToDto.convert(imageRepository.getRandomImage().get(0));
-        return imageDto;
+        List<Tag> tags = tagRepository.getTagsByImageName(imageDto.getName());
+        TmpDtoToFix tmpDtoToFix = new TmpDtoToFix();
+        tmpDtoToFix.setTitle(imageDto.getTitle());
+        tmpDtoToFix.setPoints(imageDto.getPoints());
+        tmpDtoToFix.setName(imageDto.getName());
+        for(Tag tag: tags){
+            tmpDtoToFix.add(tag.getTagEnum());
+        }
+        return tmpDtoToFix;
     }
 
     @Override

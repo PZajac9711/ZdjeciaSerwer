@@ -31,7 +31,7 @@ public class PrivateController {
 
     @CrossOrigin(allowedHeaders = "authorization")
     @GetMapping(value = "/random")
-    public ResponseEntity<ImageDto> getRandomImage(@RequestHeader("authorization") String language) {
+    public ResponseEntity<TmpDtoToFix> getRandomImage(@RequestHeader("authorization") String language) {
         HttpHeaders httpHeaders = new HttpHeaders();
         return ResponseEntity.ok()
                 .headers(httpHeaders)
