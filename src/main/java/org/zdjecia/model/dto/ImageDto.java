@@ -1,9 +1,12 @@
 package org.zdjecia.model.dto;
 
+import java.util.List;
+
 public class ImageDto {
     private String title;
     private String name;
     private int points;
+
     public ImageDto(String title, String name, int points) {
         this.title = title;
         this.name = name;
@@ -28,6 +31,7 @@ public class ImageDto {
     public void setName(String name) {
         this.name = name;
     }
+
 
     @Override
     public String toString() {

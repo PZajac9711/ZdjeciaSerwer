@@ -48,4 +48,13 @@ public class Tag {
     public void setTagEnum(TagEnum tagEnum) {
         this.tagEnum = tagEnum.getTagName();
     }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", imageName='" + imageName + '\'' +
+                ", tagEnum='" + tagEnum + '\'' +
+                '}';
+    }
 }
