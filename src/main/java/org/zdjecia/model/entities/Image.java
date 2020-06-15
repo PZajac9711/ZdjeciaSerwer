@@ -7,7 +7,7 @@ import java.util.Set;
 //Many to one
 //One to one
 @Entity
-@Table(name = "images",schema = "memo")
+@Table(name = "images")
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
