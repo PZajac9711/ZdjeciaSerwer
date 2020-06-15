@@ -1,16 +1,19 @@
 package org.zdjecia.model.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 //Many to one
 //One to one
 @Entity
 @Table(name = "images")
-public class Image {
+public class Image implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_image")
     private Long imageId;
     @Column(name = "title")
@@ -21,6 +24,17 @@ public class Image {
     private int points; // how much points have single image
     @Column(name = "insert_date")
     private Date insertDate;
+
+    @OneToMany(mappedBy = "imageTag")
+    private List<Tag> tags;
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public Image(String title, String name, int points, Date insertDate) {
         this.title = title;

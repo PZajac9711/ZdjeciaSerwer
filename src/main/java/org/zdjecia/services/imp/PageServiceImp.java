@@ -21,15 +21,13 @@ import java.util.List;
 @Service(value = "pageService")
 public class PageServiceImp implements PageService {
     private final ImageRepository imageRepository;
-    private final TagRepository tagRepository;
     private final int MAX_PAGE_ON_SINGLE_PAGE = 5;
     private final Converter<List<Image>, List<ImageDto>> imageListToDtoList;
 
     @Autowired
     public PageServiceImp(ImageRepository imageRepository,
-                          TagRepository tagRepository, @Qualifier("imageToDtoList") Converter<List<Image>, List<ImageDto>> imageListToDtoList) {
+                          @Qualifier("imageToDtoList") Converter<List<Image>, List<ImageDto>> imageListToDtoList) {
         this.imageRepository = imageRepository;
-        this.tagRepository = tagRepository;
         this.imageListToDtoList = imageListToDtoList;
     }
 
@@ -48,8 +46,7 @@ public class PageServiceImp implements PageService {
                 tas.setName(x.getName());
                 tas.setPoints(x.getPoints());
                 tas.setTitle(x.getTitle());
-                List<Tag> tags = tagRepository.getTagsByImageName(x.getName());
-                for(Tag tag: tags){
+                for(Tag tag: x.getTags()){
                     tas.add(tag.getTagEnum());
                 }
                 tmpDtoToFixes.add(tas);

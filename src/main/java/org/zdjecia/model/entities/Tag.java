@@ -4,12 +4,13 @@ import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 import org.zdjecia.model.tag.TagEnum;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "tags")
-public class Tag {
+public class Tag implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "image_name")
@@ -17,7 +18,19 @@ public class Tag {
     @Column(name = "tag")
     private String tagEnum;
 
-    public Tag(String imageName,TagEnum tagEnum){
+    @ManyToOne
+    @JoinColumn(name = "image_name",referencedColumnName = "name",insertable = false,updatable = false)
+    private Image imageTag;
+
+    public Image getImageTag() {
+        return imageTag;
+    }
+
+    public void setImageTag(Image imageTag) {
+        this.imageTag = imageTag;
+    }
+
+    public Tag(String imageName, TagEnum tagEnum){
         this.tagEnum = tagEnum.getTagName();
         this.imageName = imageName;
     }

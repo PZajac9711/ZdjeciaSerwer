@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Score {
     @Id
     @Column(name = "score_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scoreId;
     @Column(name = "image_id")
     private Long imageId;
