@@ -8,14 +8,15 @@ import java.util.Random;
 
 @Component(value = "fileImp")
 public class FileImp implements FileHelper {
-    private final String allViableChars = "0123456789abcdefghijklmnoprstwuxyzABCDEFGHIJKLMNOPRSTWUYZ";
+    private final String ALL_VIABLE_CHARS = "0123456789abcdefghijklmnoprstwuxyzABCDEFGHIJKLMNOPRSTWUYZ";
+    private final int MAX_LENGTH_RANDOM_FILE_NAME = 32;
 
     @Override
     public String generateNewFileName(String fileName) {
         StringBuilder randomPrefix = new StringBuilder();
         Random random = new Random();
-        for(int i = 0; i < 32; i++){
-            randomPrefix.append(allViableChars.charAt(random.nextInt(allViableChars.length())));
+        for(int i = 0; i < MAX_LENGTH_RANDOM_FILE_NAME; i++){
+            randomPrefix.append(ALL_VIABLE_CHARS.charAt(random.nextInt(ALL_VIABLE_CHARS.length())));
         }
         Date date = new Date(System.currentTimeMillis());
         String fileDate = date.toString();
