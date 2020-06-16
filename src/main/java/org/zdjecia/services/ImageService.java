@@ -1,7 +1,6 @@
 package org.zdjecia.services;
 
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.tag.TagEnum;
 

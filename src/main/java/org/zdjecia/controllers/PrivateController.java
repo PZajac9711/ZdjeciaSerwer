@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;

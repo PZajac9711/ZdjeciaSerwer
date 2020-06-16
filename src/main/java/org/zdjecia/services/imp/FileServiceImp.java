@@ -6,12 +6,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.file.FileHelper;
 import org.zdjecia.model.repository.ImageRepository;
 import org.zdjecia.model.repository.TagRepository;
+import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.FileService;
 
 import java.io.File;
@@ -35,7 +35,7 @@ public class FileServiceImp implements FileService {
     }
 
     @Override
-    public boolean saveFile(MultipartFile image, InsertImageDto imageData) throws IOException {
+    public boolean saveFile(MultipartFile image, ImageDto imageData) throws IOException {
         final String newFileName = fileHelper.generateNewFileName(image.getOriginalFilename());
         File newImage = new File(PLACE_TO_SAVE + newFileName);
         newImage.createNewFile();
@@ -51,13 +51,13 @@ public class FileServiceImp implements FileService {
     }
 
 
-    private boolean insertImage(String name,InsertImageDto imageData) {
+    private boolean insertImage(String name,ImageDto imageData) {
         imageData.setName(name);
         if(checkIfFileExist(name)){
             Image image = converterImageDtoToImage.convert(imageData);
             imageRepository.save(image);
             imageData.getTags()
-                    .forEach(tag -> tagRepository.save(new Tag(name,tag)));
+                    .forEach(tag -> tagRepository.save(new Tag(name,Enum.valueOf(TagEnum.class,tag))));
             return true;
         }
         return false;

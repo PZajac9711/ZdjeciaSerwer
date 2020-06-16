@@ -6,14 +6,20 @@ public class ImageDto {
     private String title;
     private String name;
     private int points;
+    private List<String> tags;
 
-    public ImageDto(String title, String name, int points) {
+    public ImageDto(String title, String name, int points, List<String> tags) {
         this.title = title;
         this.name = name;
         this.points = points;
+        this.tags = tags;
     }
 
     public ImageDto() {
+    }
+
+    public List<String> getTags() {
+        return tags;
     }
 
     public String getTitle() {

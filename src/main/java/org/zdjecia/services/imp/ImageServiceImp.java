@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.InsertImageDto;
 import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.entities.Tag;
