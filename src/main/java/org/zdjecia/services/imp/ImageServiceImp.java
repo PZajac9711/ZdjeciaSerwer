@@ -7,9 +7,7 @@ import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
 import org.zdjecia.model.entities.Image;
 import org.zdjecia.model.repository.ImageRepository;
-import org.zdjecia.model.repository.TagRepository;
 import org.zdjecia.model.tag.TagEnum;
-import org.zdjecia.services.FileService;
 import org.zdjecia.services.ImageService;
 
 import java.util.List;
@@ -17,26 +15,17 @@ import java.util.List;
 @Service(value = "imageService")
 public class ImageServiceImp implements ImageService {
     private final ImageRepository imageRepository;
-    private final TagRepository tagRepository;
-    private final FileService fileService;
 
 
     private final Converter<Image, ImageDto> converterImageToDto;
-    private final Converter<ImageDto, Image> converterImageDtoToImage;
     private final Converter<List<Image>, List<ImageDto>> converterImageToDtoList;
 
     @Autowired
     public ImageServiceImp(ImageRepository imageRepository,
-                           TagRepository tagRepository,
-                           @Qualifier("fileService") FileService fileService,
                            @Qualifier("imageToDto") Converter<Image, ImageDto> converterImageToDto,
-                           @Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage,
                            @Qualifier("imageToDtoList") Converter<List<Image>, List<ImageDto>> converterImageToDtoList) {
         this.imageRepository = imageRepository;
-        this.fileService = fileService;
         this.converterImageToDto = converterImageToDto;
-        this.converterImageDtoToImage = converterImageDtoToImage;
-        this.tagRepository = tagRepository;
         this.converterImageToDtoList = converterImageToDtoList;
     }
 
