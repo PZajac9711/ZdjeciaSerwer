@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.tag.TagEnum;
 import org.zdjecia.services.ImageService;
 import org.zdjecia.services.PageService;
@@ -30,7 +29,7 @@ public class PrivateController {
 
     @CrossOrigin(allowedHeaders = "authorization")
     @GetMapping(value = "/random")
-    public ResponseEntity<TmpDtoToFix> getRandomImage(@RequestHeader("authorization") String language) {
+    public ResponseEntity<ImageDto> getRandomImage(@RequestHeader("authorization") String language) {
         HttpHeaders httpHeaders = new HttpHeaders();
         return ResponseEntity.ok()
                 .headers(httpHeaders)
@@ -62,7 +61,7 @@ public class PrivateController {
 
     @CrossOrigin
     @GetMapping(value = "/page")
-    public ResponseEntity<List<TmpDtoToFix>> getPageById(@RequestParam(defaultValue = "0") int page) {
+    public ResponseEntity<List<ImageDto>> getPageById(@RequestParam(defaultValue = "0") int page) {
         return new ResponseEntity<>(pageService.getPage(page, "imageId"), HttpStatus.OK);
     }
 

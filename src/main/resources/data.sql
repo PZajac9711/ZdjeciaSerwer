@@ -44,3 +44,6 @@ INSERT INTO images (title, name, points,insert_date) VALUES ('title','292j81F8tl
 
 INSERT INTO tags (image_name, tag) VALUES ('0Ay9Za7DxKIeTFIU0LEDJbMANnhDdl4pMonJun08110657CEST2020.jpg','TAG2');
 INSERT INTO tags (image_name, tag) VALUES ('0Ay9Za7DxKIeTFIU0LEDJbMANnhDdl4pMonJun08110657CEST2020.jpg','TAG1');
+
+INSERT INTO tags (image_name, tag) VALUES ('2gFeZa1UWnRGMhMNNgMp5mwGIDzKLpHCWedJun03151435CEST2020.jpg','TAG2');
+INSERT INTO tags (image_name, tag) VALUES ('2gFeZa1UWnRGMhMNNgMp5mwGIDzKLpHCWedJun03151435CEST2020.jpg','TAG1');

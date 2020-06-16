@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.entities.Image;
-import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.repository.ImageRepository;
 import org.zdjecia.model.repository.TagRepository;
 import org.zdjecia.model.tag.TagEnum;
@@ -43,17 +41,8 @@ public class ImageServiceImp implements ImageService {
     }
 
     @Override
-    public TmpDtoToFix getRandomImage() {
-        ImageDto imageDto = converterImageToDto.convert(imageRepository.getRandomImage().get(0));
-        List<Tag> tags = tagRepository.getTagsByImageName(imageDto.getName());
-        TmpDtoToFix tmpDtoToFix = new TmpDtoToFix();
-        tmpDtoToFix.setTitle(imageDto.getTitle());
-        tmpDtoToFix.setPoints(imageDto.getPoints());
-        tmpDtoToFix.setName(imageDto.getName());
-        for(Tag tag: tags){
-            tmpDtoToFix.add(tag.getTagEnum());
-        }
-        return tmpDtoToFix;
+    public ImageDto getRandomImage() {
+        return converterImageToDto.convert(imageRepository.getRandomImage().get(0));
     }
 
     @Override

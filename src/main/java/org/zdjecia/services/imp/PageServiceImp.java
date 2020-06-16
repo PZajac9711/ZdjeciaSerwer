@@ -8,11 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.zdjecia.model.converter.Converter;
 import org.zdjecia.model.dto.ImageDto;
-import org.zdjecia.model.dto.TmpDtoToFix;
 import org.zdjecia.model.entities.Image;
-import org.zdjecia.model.entities.Tag;
 import org.zdjecia.model.repository.ImageRepository;
-import org.zdjecia.model.repository.TagRepository;
 import org.zdjecia.services.PageService;
 
 import java.util.ArrayList;
@@ -32,29 +29,17 @@ public class PageServiceImp implements PageService {
     }
 
     @Override
-    public List<TmpDtoToFix> getPage(int pageNumber,String sortBy) {
+    public List<ImageDto> getPage(int pageNumber,String sortBy) {
         if(pageNumber > getNumberOfLastPage()){
             long tmp = getNumberOfLastPage()-1;
             pageNumber = (int)tmp;
         }
         PageRequest paging = PageRequest.of(pageNumber, MAX_PAGE_ON_SINGLE_PAGE, Sort.by(sortBy));
         Page<Image> pagedResult = imageRepository.findAll(paging);
-        List<TmpDtoToFix> tmpDtoToFixes = new ArrayList<>();
         if(pagedResult.hasContent()) {
-            for(Image x : pagedResult) {
-                TmpDtoToFix tas = new TmpDtoToFix();
-                tas.setName(x.getName());
-                tas.setPoints(x.getPoints());
-                tas.setTitle(x.getTitle());
-                for(Tag tag: x.getTags()){
-                    tas.add(tag.getTagEnum());
-                }
-                tmpDtoToFixes.add(tas);
-            }
-            return tmpDtoToFixes;
-            //return imageListToDtoList.convert(pagedResult.getContent());
+            return imageListToDtoList.convert(pagedResult.getContent());
         } else {
-            return new ArrayList<TmpDtoToFix>();
+            return new ArrayList<ImageDto>();
         }
     }
 

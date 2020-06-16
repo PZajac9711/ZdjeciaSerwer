@@ -15,11 +15,12 @@ public class ImageToDtoListConverter implements Converter<List<Image>, List<Imag
     public List<ImageDto> convert(List<Image> from) {
         List<String> finalTags = new ArrayList<>();
         List<ImageDto> dtoList = new ArrayList<>();
-        from.forEach(image -> {
+        for(Image image:from){
             image.getTags().forEach(tag -> finalTags.add(tag.getTagEnum()));
-            dtoList.add(new ImageDto(image.getTitle(),image.getName(),image.getPoints(),finalTags));
+            ImageDto imageDto = new ImageDto(image.getTitle(),image.getName(),image.getPoints(),List.copyOf(finalTags));
+            dtoList.add(imageDto);
             finalTags.clear();
-        });
+        }
         return dtoList;
     }
 }

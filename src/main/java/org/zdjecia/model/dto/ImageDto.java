@@ -45,6 +45,7 @@ public class ImageDto {
                 "title='" + title + '\'' +
                 ", name='" + name + '\'' +
                 ", points=" + points +
+                ", tags=" + tags +
                 '}';
     }
 }
