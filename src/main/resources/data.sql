@@ -47,3 +47,6 @@ INSERT INTO tags (image_name, tag) VALUES ('0Ay9Za7DxKIeTFIU0LEDJbMANnhDdl4pMonJ
 
 INSERT INTO tags (image_name, tag) VALUES ('2gFeZa1UWnRGMhMNNgMp5mwGIDzKLpHCWedJun03151435CEST2020.jpg','TAG2');
 INSERT INTO tags (image_name, tag) VALUES ('2gFeZa1UWnRGMhMNNgMp5mwGIDzKLpHCWedJun03151435CEST2020.jpg','TAG1');
+
+--password = ala123
+INSERT INTO users (user_name, user_password, email) VALUES ('ala','$2a$10$5FWwVA0M36nyKuOrRkfPD.JCwPosgF6B4wSJ9XBBR3MbswCZZNSyK','ala@wp.pl');

@@ -7,7 +7,6 @@ import org.zdjecia.model.entities.Image;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component(value = "imageToDtoList")
 public class ImageToDtoListConverter implements Converter<List<Image>, List<ImageDto>> {

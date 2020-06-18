@@ -22,9 +22,10 @@ import java.io.IOException;
 public class FileServiceImp implements FileService {
     private final FileHelper fileHelper;
     private final String PLACE_TO_SAVE = System.getProperty("user.dir") + "\\src\\main\\upload\\static\\images\\";
+    private final Converter<ImageDto, Image> converterImageDtoToImage;
+
     private TagRepository tagRepository;
     private ImageRepository imageRepository;
-    private final Converter<ImageDto, Image> converterImageDtoToImage;
 
     @Autowired
     public FileServiceImp(@Qualifier("DtoToImage") Converter<ImageDto, Image> converterImageDtoToImage,@Qualifier("fileImp") FileHelper fileHelper, TagRepository tagRepository, ImageRepository imageRepository) {

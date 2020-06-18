@@ -23,7 +23,8 @@ public class Main {
         filterRegistrationBean.setFilter(new JwtFilterImp());
         filterRegistrationBean.addUrlPatterns(
                 "/score",
-                "/random"
+                "/random",
+                "/uploadFile"
         );
         return filterRegistrationBean;
     }
