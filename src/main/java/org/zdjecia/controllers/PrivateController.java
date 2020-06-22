@@ -13,6 +13,7 @@ import org.zdjecia.services.ScoreService;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 public class PrivateController {
     private final ImageService imageService;
@@ -27,9 +28,8 @@ public class PrivateController {
         this.pageService = pageService;
     }
 
-    @CrossOrigin(allowedHeaders = "authorization")
     @GetMapping(value = "/random")
-    public ResponseEntity<ImageDto> getRandomImage(@RequestHeader("authorization") String language) {
+    public ResponseEntity<ImageDto> getRandomImage() {
         HttpHeaders httpHeaders = new HttpHeaders();
         return ResponseEntity.ok()
                 .headers(httpHeaders)
@@ -41,10 +41,8 @@ public class PrivateController {
         return imageService.findImageByTitle(title);
     }
 
-    @CrossOrigin
     @GetMapping(value = "/score")
-    public ResponseEntity<Void> userClickScore(@RequestParam String imageName, @RequestHeader (name="Authorization") String token) {//poczytac o http w header
-        System.out.println(token);
+    public ResponseEntity<Void> userClickScore(@RequestParam String imageName, @RequestHeader (name="Authorization") String token) {
         int score = scoreService.findIfUserAlreadyClickScore(imageName,token);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("actualScore", String.valueOf(score));
@@ -59,7 +57,6 @@ public class PrivateController {
         return imageService.findImagesByTag(tagEnum);
     }
 
-    @CrossOrigin
     @GetMapping(value = "/page")
     public ResponseEntity<List<ImageDto>> getPageById(@RequestParam(defaultValue = "0") int page) {
         return new ResponseEntity<>(pageService.getPage(page, "imageId"), HttpStatus.OK);

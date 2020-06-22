@@ -32,26 +32,11 @@ public class UserServiceTest {
     @MockBean
     private UserRepository userRepository;
 
-    private List<String> userList;
-
-    @Before
-    public void setUp() {
-        this.userList = new ArrayList<>(
-                Arrays.asList(
-                        "alex",
-                        "barbara",
-                        "janek123",
-                        "alex321",
-                        "dzieciol997"
-                )
-        );
-    }
-
     @Test
     public void createUserTestShouldReturnFalse() {
         // given
         UserRegisterDto userDto = new UserRegisterDto("alex", "x", "x");
-        Optional<User> user = this.userList.contains("alex") ? Optional.of(new User(this.userList.get(this.userList.indexOf("alex")), "x", "x")) : Optional.empty();
+        Optional<User> user = Optional.of(new User("alex","x","x"));
         Mockito.when(userRepository.findByUserName("alex"))
                 .thenReturn(user);
 
@@ -65,9 +50,9 @@ public class UserServiceTest {
     @Test
     public void createUserTestShouldReturnTrue() {
         // given
-        UserRegisterDto userDto = new UserRegisterDto("alexx", "x", "email@wp.pl");
-        Optional<User> user = this.userList.contains("alexx") ? Optional.of(new User(this.userList.get(this.userList.indexOf("alexx")), "x", "x")) : Optional.empty();
-        Mockito.when(userRepository.findByUserName("alexx"))
+        UserRegisterDto userDto = new UserRegisterDto("alex", "x", "email@wp.pl");
+        Optional<User> user = Optional.empty();
+        Mockito.when(userRepository.findByUserName("alex"))
                 .thenReturn(user);
 
         // when

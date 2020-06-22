@@ -40,7 +40,7 @@ INSERT INTO images (title, name, points,insert_date) VALUES ('title','2gFeZa1UWn
 INSERT INTO images (title, name, points,insert_date) VALUES ('title','5cJNSLGLwKJIeMllmRSdc3OE9gOjikSbMonJun08110631CEST2020.jpg',0,NOW());
 INSERT INTO images (title, name, points,insert_date) VALUES ('title','7J8jFeL98dpmjDuSczIsahCj05BtGwJ2MonJun08101833CEST2020.jpg',0,NOW());
 INSERT INTO images (title, name, points,insert_date) VALUES ('title','48MhFUpW5CACtS30UNMauFu1cmS9aIbuWedJun03161427CEST2020.jpg',0,NOW());
-INSERT INTO images (title, name, points,insert_date) VALUES ('title','292j81F8tlNpd9Kd8pFKbu018jLpHG3PMonJun08101944CEST2020.jpg',0,NOW());
+INSERT INTO images (title, name, points,insert_date) VALUES ('title2','292j81F8tlNpd9Kd8pFKbu018jLpHG3PMonJun08101944CEST2020.jpg',0,NOW());
 
 INSERT INTO tags (image_name, tag) VALUES ('0Ay9Za7DxKIeTFIU0LEDJbMANnhDdl4pMonJun08110657CEST2020.jpg','TAG2');
 INSERT INTO tags (image_name, tag) VALUES ('0Ay9Za7DxKIeTFIU0LEDJbMANnhDdl4pMonJun08110657CEST2020.jpg','TAG1');
