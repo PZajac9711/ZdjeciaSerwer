@@ -1,6 +1,5 @@
 package tests;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -15,16 +14,12 @@ import org.zdjecia.model.repository.UserRepository;
 import org.zdjecia.services.UserService;
 import org.zdjecia.services.imp.UserServiceImp;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = {UserServiceImp.class, Main.class})
-// Main robi za configuration póki co bo trzeba wszystknac bena z password encryptem
 @RunWith(SpringRunner.class)
 public class UserServiceTest {
     @Autowired
